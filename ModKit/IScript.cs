@@ -8,7 +8,6 @@ namespace ModKit
 {
     public interface IScript
     {
-        void Load(Logger log);
-        void Update();
+        void Load();
     }
 }

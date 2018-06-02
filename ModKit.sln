@@ -12,7 +12,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "proxy", "proxy\proxy.vcxpro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModKit", "ModKit\ModKit.csproj", "{2B492C4A-E6A8-4254-B6D0-B7A515C47960}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheatScript", "CheatScript\CheatScript.csproj", "{F2ACC7C1-C8DA-4506-9081-1D6AC8AA3CB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleScript", "ExampleScript\ExampleScript.csproj", "{F2ACC7C1-C8DA-4506-9081-1D6AC8AA3CB4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2B492C4A-E6A8-4254-B6D0-B7A515C47960} = {2B492C4A-E6A8-4254-B6D0-B7A515C47960}
 	EndProjectSection

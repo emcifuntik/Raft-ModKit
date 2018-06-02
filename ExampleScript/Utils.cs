@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace CheatScript
+namespace ExampleScript
 {
     public static class Utils
     {

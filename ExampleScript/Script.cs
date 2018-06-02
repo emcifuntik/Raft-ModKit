@@ -1,33 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace CheatScript
+namespace ExampleScript
 {
     public class Script: MonoBehaviour
     {
         ModKit.Logger log = ModKit.Loader.log;
-        Inventory myInventory = null;
         bool guiVisible = false;
-        
-        void Start()
-        {
-            log.Debug += "CheatScript.Start called";
-        }
 
         void Awake()
         {
-            log.Debug += "CheatScript.Awake called";
+            //log.Debug += "CheatScript.Awake called";
         }
 
         void OnGUI()
         {
-            log.Debug += "CheatScript.OnGUI called";
-            if(guiVisible)
+            if (guiVisible)
             {
                 if (GUI.Button(new Rect(10, 10, 150, 100), "I am a button"))
                 {
@@ -36,9 +28,14 @@ namespace CheatScript
             }
         }
 
+        void OnDestroy()
+        {
+            log.Debug += "Script.OnDestroy called";
+        }
+
         void Update()
         {
-            log.Debug += "CheatScript.Update called";
+            //log.Debug += "CheatScript.Update called";
             //if(guiVisible)
             //{
             //    GUI.Box(new Rect(10, 10, 100, 90), "Mod Menu");
@@ -79,12 +76,12 @@ namespace CheatScript
                 GameManager.UseCheats = true;
                 log.Debug += "Cheats activated";
             }
-            else if(GameManager.GameMode == GameMode.Creative && GameManager.UseCheats == true)
+            else if (GameManager.GameMode == GameMode.Creative && GameManager.UseCheats == true)
             {
                 //cheat.Update();
             }
 
-            if(GameManager.GameMode != GameMode.None)
+            if (GameManager.GameMode != GameMode.None)
             {
                 //if (Input.GetKeyDown(KeyCode.Z))
                 //{
@@ -123,6 +120,16 @@ namespace CheatScript
 
                 if (Input.GetKeyDown(KeyCode.M))
                 {
+                    if(!guiVisible)
+                    {
+                        Helper.SetCursorVisibleAndLockState(true, CursorLockMode.None);
+                        CanvasHelper.ActiveMenu = MenuType.TextWriter;
+                    }
+                    else
+                    {
+                        Helper.SetCursorVisibleAndLockState(false, CursorLockMode.Locked);
+                        CanvasHelper.ActiveMenu = MenuType.None;
+                    }
                     guiVisible = !guiVisible;
                 }
             }
