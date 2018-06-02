@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheatScript", "CheatScript\
 		{2B492C4A-E6A8-4254-B6D0-B7A515C47960} = {2B492C4A-E6A8-4254-B6D0-B7A515C47960}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kit", "kit", "{05334CC9-0EFE-4679-AFDA-1818BFBB7C67}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{8C13F524-3B57-49E9-B96C-0C6F92FD220E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +74,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C40CDEE1-2910-4591-81D7-78841FEB9BDF} = {05334CC9-0EFE-4679-AFDA-1818BFBB7C67}
+		{D700FC3D-0A9D-4933-AA46-38E178622E22} = {05334CC9-0EFE-4679-AFDA-1818BFBB7C67}
+		{2B492C4A-E6A8-4254-B6D0-B7A515C47960} = {05334CC9-0EFE-4679-AFDA-1818BFBB7C67}
+		{F2ACC7C1-C8DA-4506-9081-1D6AC8AA3CB4} = {8C13F524-3B57-49E9-B96C-0C6F92FD220E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80E653F7-0500-45D2-A9B9-E1EAE2FD385E}
