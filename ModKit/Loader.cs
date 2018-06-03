@@ -21,13 +21,11 @@ namespace ModKit {
         public static List<LoadedScript> loadedScripts = new List<LoadedScript>();
         public static string ModKitPath = "";
 
-        public static void Load() {
-            ModKitPath = (string)Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\RaftModKit", "ModKitFolder", null);
+        public static void Load(string rootPath) {
+            ModKitPath = rootPath;
             log = new Logger(ModKitPath + "\\modlog.txt");
-            log += "[Debug] Logger inited" + Environment.NewLine;
 
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
-
 
             LoadAllScripts();
             ExecuteAllScripts();

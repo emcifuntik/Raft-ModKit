@@ -13,6 +13,7 @@
 #define MonoObject void
 #define MonoImage void
 #define MonoProperty void
+#define MonoString void
 
 typedef enum {
 	MONO_IMAGE_OK,
@@ -40,9 +41,10 @@ typedef MonoImage* (__cdecl* mAssemblyGetImage_t)(MonoAssembly *assembly);
 typedef MonoDomain* (__cdecl* mDomainGet_t)();
 typedef MonoImage* (__cdecl* mImageOpenFromData_t)(char* data, uint32_t len, int32_t nCopy, MonoImageOpenStatus *status, int32_t refonly);
 typedef MonoAssembly* (__cdecl* mAssemblyLoadFromFull_t)(MonoImage* image, void *fname, MonoImageOpenStatus *status, bool refonly);
+typedef MonoString* (__cdecl* mStringNew_t)(MonoDomain* domain, const char* str);
 
 
 void LoadHook();
 void RemoveHook();
 
-void LoadMonoDll(std::string dllPath, std::string dllNamespace);
+void LoadMonoDll(MonoDomain* domain, std::string dllPath, std::string dllNamespace);

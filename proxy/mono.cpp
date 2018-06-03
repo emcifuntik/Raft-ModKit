@@ -11,6 +11,7 @@ mAssemblyGetImage_t mono_assembly_get_image = MONO_FUNC<mAssemblyGetImage_t>("mo
 mDomainGet_t mono_domain_get = MONO_FUNC<mDomainGet_t>("mono_domain_get");
 mImageOpenFromData_t mono_image_open_from_data = MONO_FUNC<mImageOpenFromData_t>("mono_image_open_from_data");
 mAssemblyLoadFromFull_t mono_assembly_load_from_full = MONO_FUNC<mAssemblyLoadFromFull_t>("mono_assembly_load_from_full");
+mStringNew_t mono_string_new = MONO_FUNC<mStringNew_t>("mono_string_new");
 
 mDomainGet_t origDomainGet = nullptr;
 bool injected = false;
@@ -36,14 +37,14 @@ T MONO_FUNC(const char *funcName) {
 
 void* __cdecl hkMonoDomainGet()
 {
-	void* ret = origDomainGet();
+	MonoDomain* ret = origDomainGet();
 
 	if (!g_AssemblyQueue.empty())
 	{
 		auto assembly = g_AssemblyQueue.front();
 		g_AssemblyQueue.pop();
 
-		LoadMonoDll(assembly.first, assembly.second);
+		LoadMonoDll(ret, assembly.first, assembly.second);
 	}
 
 	return ret;
@@ -63,7 +64,7 @@ void RemoveHook()
 }
 
 
-void LoadMonoDll(std::string dllPath, std::string dllNamespace)
+void LoadMonoDll(MonoDomain* domain, std::string dllPath, std::string dllNamespace)
 {
 	MonoImageOpenStatus status;
 
@@ -72,14 +73,24 @@ void LoadMonoDll(std::string dllPath, std::string dllNamespace)
 	std::vector<char> data = FileReadAllBytes(converter.from_bytes(dllPath));
 
 	MonoImage* raw_img = mono_image_open_from_data(reinterpret_cast<char*>(data.data()), data.size(), 1, &status, 0);
-
 	MonoAssembly* assembly = mono_assembly_load_from_full(raw_img, "ok", &status, 0);
-
 	MonoImage* img = mono_assembly_get_image(assembly);
-
 	MonoClass* mainClass = mono_class_from_name(img, dllNamespace.data(), "Loader");
+	MonoMethod* method = mono_class_get_method_from_name(mainClass, "Load", 1);
 
-	MonoMethod* method = mono_class_get_method_from_name(mainClass, "Load", 0);
+	int slashOn = -1;
+	for (int i = dllPath.length(); i >= 0; --i) {
+		if (dllPath[i] == '\\') {
+			slashOn = i;
+			break;
+		}
+	}
+	char dllFolder[MAX_PATH] = { 0 };
+	memcpy_s(dllFolder, MAX_PATH, dllPath.c_str(), slashOn + 1);
+	MonoString* rootPath = mono_string_new(domain, dllFolder);
 
-	mono_runtime_invoke(method, NULL, NULL, NULL);
+	void* args[1];
+	args[0] = rootPath;
+
+	mono_runtime_invoke(method, NULL, args, NULL);
 }

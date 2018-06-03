@@ -2,6 +2,7 @@
 #include "ProcessHelper.h"
 #include "Utility.h"
 #include <Shellapi.h>
+#include "../shared/CLog.h"
 
 using namespace System;
 using namespace System::Reflection;
@@ -27,11 +28,12 @@ System::String^ GetAssemblyName(System::String^ dll)
 [System::STAThreadAttribute]
 int WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
+	my_ostream::LogFile("launcher.log");
 	ProcessHelper::ProcessInfo * raftProcess = nullptr;
 
 	raftProcess = ProcessHelper::GetRaftProcess();
-	if (raftProcess) { //Already run
-		MessageBoxA(NULL, "Raft.exe already run. It must be started with ModKit", "ModKit startup error", MB_OK);
+	if (raftProcess) {
+		MessageBoxA(NULL, "Raft.exe already run. It must be started with ModKit", "[ModKit] startup error", MB_OK);
 		delete raftProcess;
 		return 0;
 	}
@@ -45,43 +47,28 @@ int WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	} while (!raftProcess);
 
 	if (!raftProcess->SameArchitecture()) {
-		MessageBoxA(NULL, "Can't inject into Raft (Another architecture).", "[ModKit] Injection error", MB_OK);
+		log_error << "Can't inject into Raft (Another architecture)." << std::endl;
 		delete raftProcess;
 		return 0;
 	}
 
+	while (!raftProcess->HasModule("mono.dll")) {
+		Sleep(10);
+		raftProcess->UpdateModules();
+	}
+
 	if (raftProcess->HasModule("mono.dll")) {
-		RegistryKey^ rk;
-		rk = Registry::CurrentUser->OpenSubKey("Software", true);
-		if (!rk)
-		{
-			Console::WriteLine("Failed to open CurrentUser/Software key");
-			return 1;
-		}
-
-		RegistryKey^ nk = rk->CreateSubKey("RaftModKit");
-		if (!nk)
-		{
-			Console::WriteLine("Failed to create 'RaftModKit'");
-			return 1;
-		}
-
-		String^ newValue = gcnew System::String(Utility::CurrentPath().c_str());
-		try
-		{
-			nk->SetValue("ModKitFolder", newValue);
-		}
-		catch (Exception^)
-		{
-			Console::WriteLine("Failed to set new values in 'ModKitFolder'");
-			return 1;
-		}
-
 		std::string modKitDll = Utility::CurrentPath() + "\\ModKit.dll";
 		System::String^ dllPathClr = gcnew System::String(modKitDll.c_str());
 		if (!ProcessHelper::InjectDLL(modKitDll, Utility::ToString(GetAssemblyName(dllPathClr)), raftProcess)) {
 			MessageBoxA(NULL, "Can't inject into Raft.", "[ModKit] Injection error", MB_OK);
 		}
+		else {
+			log_info << "Successfully injected into Raft" << std::endl;
+		}
+	}
+	else {
+		log_error << "Raft process has no Mono.dll loaded" << std::endl;
 	}
 	delete raftProcess;
 	return 0;
