@@ -1,7 +1,7 @@
 # Raft-ModKit
 ![Raft Poster](/raft.png)
 ## How to start playing with mods
-* [Download actual version of ModKit](https://github.com/emcifuntik/Raft-ModKit/releases/download/1.0.0.1/ModKit_Release_1.0.0.1.zip)
+* [Download actual version of ModKit](https://github.com/emcifuntik/Raft-ModKit/releases/download/1.0.0.2/ModKit_Release.zip)
 * Unpack .zip archive anywhere you want
 * Put mods that you need inside plugins folder
 * Start **Launcher.exe** and enjoy
