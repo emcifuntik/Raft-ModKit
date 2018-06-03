@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModKit", "ModKit\ModKit.csp
 		{C40CDEE1-2910-4591-81D7-78841FEB9BDF} = {C40CDEE1-2910-4591-81D7-78841FEB9BDF}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleScript", "ExampleScript\ExampleScript.csproj", "{F2ACC7C1-C8DA-4506-9081-1D6AC8AA3CB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleScript", "examples\ExampleScript\ExampleScript.csproj", "{F2ACC7C1-C8DA-4506-9081-1D6AC8AA3CB4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2B492C4A-E6A8-4254-B6D0-B7A515C47960} = {2B492C4A-E6A8-4254-B6D0-B7A515C47960}
 	EndProjectSection
@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kit", "kit", "{05334CC9-0EF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{8C13F524-3B57-49E9-B96C-0C6F92FD220E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherScript", "WeatherManager\WeatherScript.csproj", "{1EFBA076-3ED2-403E-AE88-DB73421B925D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherScript", "examples\WeatherManager\WeatherScript.csproj", "{1EFBA076-3ED2-403E-AE88-DB73421B925D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
