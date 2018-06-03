@@ -25,87 +25,56 @@ namespace ExampleScript
 
                 if (GUI.Button(new Rect(20, 40, 80, 20), "Take bow"))
                 {
-                    var myInventory = FindObjectOfType<PlayerInventory>();
+                    var netManager = FindObjectOfType<Semih_Network>();
+                    var localPlayer = netManager.GetLocalPlayer();
                     Item_Base bow = ItemManager.GetItemByNameContains("bow");
                     if (bow != null)
                     {
-                        log.Debug += bow.name + " found. Unique name: " + bow.UniqueName + ". Unique index: " + bow.UniqueIndex;
-                        Helper.DropItem(new ItemInstance(bow, 1, bow.MaxUses), myInventory.hotbar.playerNetwork.transform.position, myInventory.hotbar.playerNetwork.CameraTransform.forward, myInventory.hotbar.playerNetwork.Controller.HasRaftAsParent);
+                        Helper.DropItem(new ItemInstance(bow, 1, bow.MaxUses), localPlayer.transform.position, localPlayer.CameraTransform.forward, localPlayer.Controller.HasRaftAsParent);
                     }
                     else
                     {
-                        log.Debug += "Bow not found";
                     }
                 }
 
                 if (GUI.Button(new Rect(20, 70, 80, 20), "Take arrows"))
                 {
-                    var myInventory = FindObjectOfType<PlayerInventory>();
+                    var netManager = FindObjectOfType<Semih_Network>();
+                    var localPlayer = netManager.GetLocalPlayer();
                     Item_Base arrow = ItemManager.GetItemByNameContains("arrow");
                     if (arrow != null)
                     {
-                        log.Debug += arrow.name + " found. Unique name: " + arrow.UniqueName + ". Unique index: " + arrow.UniqueIndex;
-                        Helper.DropItem(new ItemInstance(arrow, 20, arrow.MaxUses), myInventory.hotbar.playerNetwork.transform.position, myInventory.hotbar.playerNetwork.CameraTransform.forward, myInventory.hotbar.playerNetwork.Controller.HasRaftAsParent);
+                        Helper.DropItem(new ItemInstance(arrow, 20, arrow.MaxUses), localPlayer.transform.position, localPlayer.CameraTransform.forward, localPlayer.Controller.HasRaftAsParent);
                     }
                     else
                     {
-                        log.Debug += "Arrow not found";
                     }
                 }
             }
+
+            GUIStyleState styleState = new GUIStyleState();
+            styleState.textColor = Color.white;
+
+            GUIStyle style = new GUIStyle();
+            style.fontSize = 24;
+            style.alignment = TextAnchor.MiddleCenter;
+            style.fontStyle = FontStyle.Bold;
+            style.normal = styleState;
+
+            GUI.TextArea(new Rect(Screen.width / 2 - 100, 10, 200, 30), "ModKit v.1.0.0.1", style);
         }
 
         void OnDestroy()
         {
-            log.Debug += "Script.OnDestroy called";
         }
 
         void Update()
         {
-            if (GameManager.GameMode == GameMode.Creative && GameManager.UseCheats == false)
-            {
-                GameManager.UseCheats = true;
-                log.Debug += "Cheats activated";
-            }
-            else if (GameManager.GameMode == GameMode.Creative && GameManager.UseCheats == true)
-            {
-                //cheat.Update();
-            }
-
             if (GameManager.GameMode != GameMode.None)
             {
-                //if (Input.GetKeyDown(KeyCode.Z))
-                //{
-                //    var items = ItemManager.GetAllItems();
-                //    foreach (var item in items)
-                //        log.Info += "Item [ " + item.UniqueName + " | " + item.UniqueIndex + " ]";
-                //}
-
-                //if (Input.GetKeyDown(KeyCode.B))
-                //{
-                //    myInventory = UnityEngine.Object.FindObjectOfType<Inventory>();
-                //    Item_Base ball = ItemManager.GetItemByNameContains("BeachBall");
-                //    if (ball != null)
-                //    {
-                //        log.Debug += ball.name + " found. Unique name: " + ball.UniqueName + ". Unique index: " + ball.UniqueIndex;
-                //        myInventory.AddItem(ball.UniqueName, 1);
-                //    }
-                //    else
-                //    {
-                //        log.Debug += "BeachBall not found";
-                //    }
-                //}
-
                 //if(Input.GetKeyDown(KeyCode.N))
                 //{
                 //    weatherManager = UnityEngine.Object.FindObjectOfType<WeatherManager>();
-                //    //weatherManager.Set
-                //}
-
-                //if (Input.GetKeyDown(KeyCode.C))
-                //{
-                //    NetworkUI ui = UnityEngine.Object.FindObjectOfType<NetworkUI>();
-                //    ui.Console("Test");
                 //    //weatherManager.Set
                 //}
 

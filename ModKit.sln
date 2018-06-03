@@ -11,6 +11,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "proxy", "proxy\proxy.vcxproj", "{D700FC3D-0A9D-4933-AA46-38E178622E22}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModKit", "ModKit\ModKit.csproj", "{2B492C4A-E6A8-4254-B6D0-B7A515C47960}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D700FC3D-0A9D-4933-AA46-38E178622E22} = {D700FC3D-0A9D-4933-AA46-38E178622E22}
+		{C40CDEE1-2910-4591-81D7-78841FEB9BDF} = {C40CDEE1-2910-4591-81D7-78841FEB9BDF}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleScript", "ExampleScript\ExampleScript.csproj", "{F2ACC7C1-C8DA-4506-9081-1D6AC8AA3CB4}"
 	ProjectSection(ProjectDependencies) = postProject
