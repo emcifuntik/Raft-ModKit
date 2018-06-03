@@ -1,6 +1,21 @@
 # Raft-ModKit
-![Raft Poster](https://steamcdn-a.akamaihd.net/steam/apps/648800/header.jpg?t=1527104102)
+![Raft Poster](/raft.png)
+## How to start playing with mods
+* [Download actual version of ModKit](https://github.com/emcifuntik/Raft-ModKit/releases/download/1.0.0.1/ModKit_Release_1.0.0.1.zip)
+* Unpack .zip archive anywhere you want
+* Put mods that you need inside plugins folder
+* Start **Launcher.exe** and enjoy
+
 ## How to Build
+
+## How to start modding
+* Create new C# .Net Framework Library project named _SomethingHere_Script_. **Important:** Your assembly filename must ends with Script.dll
+* Add references to 
+  * UnityEngine
+  * Assembly-CSharp.dll
+* Extend you Script class with **UnityEngine.MonoBehaviour**
+* Now you subscribed to Unity scene messages. [Look here](https://docs.unity3d.com/ScriptReference/MonoBehaviour.html)
+
 
 ## References
 * [Unity DLL Injector](https://github.com/aw-3/Unity-Injector)
