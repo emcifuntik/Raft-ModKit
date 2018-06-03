@@ -21,9 +21,36 @@ namespace ExampleScript
         {
             if (guiVisible)
             {
-                if (GUI.Button(new Rect(10, 10, 150, 100), "I am a button"))
+                GUI.Box(new Rect(10, 10, 100, 90), "Mod Menu");
+
+                if (GUI.Button(new Rect(20, 40, 80, 20), "Take bow"))
                 {
-                    print("You clicked the button!");
+                    var myInventory = FindObjectOfType<PlayerInventory>();
+                    Item_Base bow = ItemManager.GetItemByNameContains("bow");
+                    if (bow != null)
+                    {
+                        log.Debug += bow.name + " found. Unique name: " + bow.UniqueName + ". Unique index: " + bow.UniqueIndex;
+                        Helper.DropItem(new ItemInstance(bow, 1, bow.MaxUses), myInventory.hotbar.playerNetwork.transform.position, myInventory.hotbar.playerNetwork.CameraTransform.forward, myInventory.hotbar.playerNetwork.Controller.HasRaftAsParent);
+                    }
+                    else
+                    {
+                        log.Debug += "Bow not found";
+                    }
+                }
+
+                if (GUI.Button(new Rect(20, 70, 80, 20), "Take arrows"))
+                {
+                    var myInventory = FindObjectOfType<PlayerInventory>();
+                    Item_Base arrow = ItemManager.GetItemByNameContains("arrow");
+                    if (arrow != null)
+                    {
+                        log.Debug += arrow.name + " found. Unique name: " + arrow.UniqueName + ". Unique index: " + arrow.UniqueIndex;
+                        Helper.DropItem(new ItemInstance(arrow, 20, arrow.MaxUses), myInventory.hotbar.playerNetwork.transform.position, myInventory.hotbar.playerNetwork.CameraTransform.forward, myInventory.hotbar.playerNetwork.Controller.HasRaftAsParent);
+                    }
+                    else
+                    {
+                        log.Debug += "Arrow not found";
+                    }
                 }
             }
         }
@@ -35,42 +62,6 @@ namespace ExampleScript
 
         void Update()
         {
-            //log.Debug += "CheatScript.Update called";
-            //if(guiVisible)
-            //{
-            //    GUI.Box(new Rect(10, 10, 100, 90), "Mod Menu");
-
-            //    if (GUI.Button(new Rect(20, 40, 80, 20), "Take bow"))
-            //    {
-            //        myInventory = UnityEngine.Object.FindObjectOfType<Inventory>();
-            //        Item_Base bow = ItemManager.GetItemByNameContains("bow");
-            //        if (bow != null)
-            //        {
-            //            log.Debug += bow.name + " found. Unique name: " + bow.UniqueName + ". Unique index: " + bow.UniqueIndex;
-            //            myInventory.AddItem(bow.UniqueName, 1);
-            //        }
-            //        else
-            //        {
-            //            log.Debug += "Bow not found";
-            //        }
-            //    }
-
-            //    if (GUI.Button(new Rect(20, 70, 80, 20), "Take arrows"))
-            //    {
-            //        myInventory = UnityEngine.Object.FindObjectOfType<Inventory>();
-            //        Item_Base arrow = ItemManager.GetItemByNameContains("arrow");
-            //        if (arrow != null)
-            //        {
-            //            log.Debug += arrow.name + " found. Unique name: " + arrow.UniqueName + ". Unique index: " + arrow.UniqueIndex;
-            //            myInventory.AddItem(arrow.UniqueName, 20);
-            //        }
-            //        else
-            //        {
-            //            log.Debug += "Arrow not found";
-            //        }
-            //    }
-            //}
-
             if (GameManager.GameMode == GameMode.Creative && GameManager.UseCheats == false)
             {
                 GameManager.UseCheats = true;

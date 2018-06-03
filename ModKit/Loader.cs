@@ -83,22 +83,6 @@ namespace ModKit {
                 log += "Found " + scriptsCount + " scripts. Loading...";
             else
                 log += "Scripts not found" + Environment.NewLine;
-
-            //for(int i = 0; i < scripts.Count; ++i)
-            //    scripts[i].Load(log);
         }
-
-        //private static void Update(object state)
-        //{
-        //    for (int i = 0; i < scripts.Count; ++i)
-        //        scripts[i].Update();
-
-        //    //if (GameManager.GameMode == GameMode.Creative && GameManager.UseCheats == false)
-        //    //{
-        //    //    GameManager.UseCheats = true;
-        //    //}
-        //    updateTimer.Change(0, 1000 / GameManager.targetFrameRate);
-        //}
     }
-
 }

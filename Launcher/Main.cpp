@@ -79,8 +79,9 @@ int WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 		std::string modKitDll = Utility::CurrentPath() + "\\ModKit.dll";
 		System::String^ dllPathClr = gcnew System::String(modKitDll.c_str());
-		Sleep(100);
-		ProcessHelper::InjectDLL(modKitDll, Utility::ToString(GetAssemblyName(dllPathClr)), raftProcess);
+		if (!ProcessHelper::InjectDLL(modKitDll, Utility::ToString(GetAssemblyName(dllPathClr)), raftProcess)) {
+			MessageBoxA(NULL, "Can't inject into Raft.", "[ModKit] Injection error", MB_OK);
+		}
 	}
 	delete raftProcess;
 	return 0;
