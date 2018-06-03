@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -82,7 +83,7 @@ namespace ModKit
             style.fontStyle = FontStyle.Bold;
             style.normal = styleState;
 
-            GUI.Box(new Rect(Screen.width / 2 - 100, 10, 200, 30), "ModKit v.1.0.0.1", style);
+            GUI.Box(new Rect(Screen.width / 2 - 100, 10, 200, 30), "ModKit v." + Assembly.GetExecutingAssembly().GetName().Version.ToString(), style);
         }
 
         public void Update()

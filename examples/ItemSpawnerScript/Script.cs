@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace ExampleScript
+namespace ItemSpawnerScript
 {
     public class Script : MonoBehaviour
     {

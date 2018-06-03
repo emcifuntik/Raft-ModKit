@@ -7,8 +7,8 @@
     <ProjectGuid>{F2ACC7C1-C8DA-4506-9081-1D6AC8AA3CB4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ExampleScript</RootNamespace>
-    <AssemblyName>ExampleScript</AssemblyName>
+    <RootNamespace>ItemSpawnerScript</RootNamespace>
+    <AssemblyName>ItemSpawnerScript</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
