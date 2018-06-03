@@ -82,7 +82,7 @@ namespace ModKit
             style.fontStyle = FontStyle.Bold;
             style.normal = styleState;
 
-            GUI.TextField(new Rect(Screen.width / 2 - 100, 10, 200, 30), "ModKit v.1.0.0.1", style);
+            GUI.Box(new Rect(Screen.width / 2 - 100, 10, 200, 30), "ModKit v.1.0.0.1", style);
         }
 
         public void Update()
