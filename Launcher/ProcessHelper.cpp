@@ -8,7 +8,7 @@ using namespace ProcessHelper;
 
 #define PROXY_FILE "proxy.dll"
 
-bool ProcessInfo::HasModule(std::string moduleName)
+bool ProcessInfo::HasModule(const std::string& moduleName)
 {
 	for (auto it = Modules.begin(); it != Modules.end(); it++)
 		if (*it == moduleName)
@@ -16,7 +16,7 @@ bool ProcessInfo::HasModule(std::string moduleName)
 	return false;
 }
 
-void* ProcessHelper::ProcessInfo::GetModuleBase(std::string moduleName)
+void* ProcessHelper::ProcessInfo::GetModuleBase(const std::string&  moduleName)
 {
 	void* ret = nullptr;
 
@@ -156,7 +156,7 @@ bool ProcessHelper::IsProxyLoaded(ProcessInfo *pi)
 	return false;
 }
 
-void* ProcessHelper::LoadProxy(std::string proxyPath, ProcessInfo *pi)
+void* ProcessHelper::LoadProxy(const std::string&  proxyPath, ProcessInfo *pi)
 {
 	if (IsProxyLoaded(pi))
 		return pi->GetModuleBase(PROXY_FILE);
@@ -207,7 +207,7 @@ void* ProcessHelper::LoadProxy(std::string proxyPath, ProcessInfo *pi)
 }
 
 // Injects proxy dll and loads DLL via mono
-bool ProcessHelper::InjectDLL(std::string dllPath, std::string dllNamespace, ProcessInfo *pi)
+bool ProcessHelper::InjectDLL(const std::string& dllPath, const std::string& dllNamespace, ProcessInfo *pi)
 {
 	std::string proxyPath = Utility::CurrentPath() + "\\" + PROXY_FILE;
 

@@ -64,7 +64,7 @@ void RemoveHook()
 }
 
 
-void LoadMonoDll(MonoDomain* domain, std::string dllPath, std::string dllNamespace)
+void LoadMonoDll(MonoDomain* domain, const std::string& dllPath, const std::string& dllNamespace)
 {
 	MonoImageOpenStatus status;
 

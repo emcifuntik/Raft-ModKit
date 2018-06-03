@@ -47,4 +47,4 @@ typedef MonoString* (__cdecl* mStringNew_t)(MonoDomain* domain, const char* str)
 void LoadHook();
 void RemoveHook();
 
-void LoadMonoDll(MonoDomain* domain, std::string dllPath, std::string dllNamespace);
+void LoadMonoDll(MonoDomain* domain, const std::string& dllPath, const std::string& dllNamespace);

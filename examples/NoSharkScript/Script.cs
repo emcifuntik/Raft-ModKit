@@ -9,13 +9,11 @@ namespace NoSharkScript
 {
     public class Script: MonoBehaviour
     {
-        public void Update()
+        private Shark shark = null;
+        public void Awake()
         {
-            if(GameManager.GameMode != GameMode.None)
-            {
-                Shark shark = FindObjectOfType<Shark>();
-                shark.state = SharkState.None;
-            }
+            shark = FindObjectOfType<Shark>();
+            shark.enabled = false;
         }
     }
 }

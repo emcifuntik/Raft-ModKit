@@ -14,9 +14,9 @@ namespace ProcessHelper {
 		std::vector<std::string> Modules;
 
 		// Checks if process has module loaded
-		bool HasModule(std::string moduleName);
+		bool HasModule(const std::string&  moduleName);
 
-		void* GetModuleBase(std::string moduleName);
+		void* GetModuleBase(const std::string&  moduleName);
 
 		// Refreshes modules list
 		void UpdateModules();
@@ -34,9 +34,9 @@ namespace ProcessHelper {
 	bool IsProxyLoaded(ProcessInfo *pi);
 
 	/// Proxy module base
-	void* LoadProxy(std::string proxyPath, ProcessInfo *pi);
+	void* LoadProxy(const std::string&, ProcessInfo *pi);
 	ProcessInfo * GetRaftProcess();
 
-	bool InjectDLL(std::string dllPath, std::string dllNamespace, ProcessInfo *pi);
+	bool InjectDLL(const std::string&  dllPath, const std::string&  dllNamespace, ProcessInfo *pi);
 }
 
