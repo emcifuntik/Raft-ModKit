@@ -9,76 +9,78 @@ namespace ExampleScript
 {
     public class Script : MonoBehaviour
     {
-        ModKit.Logger log = ModKit.Loader.log;
-        bool guiVisible = false;
+        private bool guiVisible = false;
+        private List<Item_Base> items = null;
+        private Vector2 scrollPosition = Vector2.zero;
 
-        void Awake()
+        public void Awake()
         {
-
+            items = ItemManager.GetAllItems();
         }
-
-        void OnGUI()
+        public void OnGUI()
         {
             if (guiVisible)
             {
-                GUI.Box(new Rect(110, 110, 100, 90), "Mod Menu");
+                int windowWidth = Screen.width / 4;
+                int windowHeight = Screen.height / 2;
+                int windowPosX = Screen.width / 2 - windowWidth / 2;
+                int windowPosY = Screen.height / 2 - windowHeight / 2;
+                
+                GUI.Box(new Rect(windowPosX, windowPosY, windowWidth, windowHeight), "Object spawner");
 
-                if (GUI.Button(new Rect(120, 140, 80, 20), "Take bow"))
+                int scrollViewHeight = items.Count * 20 + 40;
+
+                int scrollViewWidth = windowWidth - 40;
+
+                scrollPosition = GUI.BeginScrollView(new Rect(windowPosX + 10, windowPosY + 20, windowWidth - 20, windowHeight - 30), scrollPosition, new Rect(0, 0, scrollViewWidth, scrollViewHeight));
+                for (int i = 0; i < items.Count; ++i)
                 {
-                    var netManager = FindObjectOfType<Semih_Network>();
-                    var localPlayer = netManager.GetLocalPlayer();
-                    Item_Base bow = ItemManager.GetItemByNameContains("bow");
-                    if (bow != null)
+                    GUIStyleState nameStyleState = new GUIStyleState();
+                    nameStyleState.textColor = Color.white;
+
+                    GUIStyle nameStyle = new GUIStyle();
+                    nameStyle.fontSize = 14;
+                    nameStyle.fontStyle = FontStyle.Bold;
+                    nameStyle.normal = nameStyleState;
+
+                    GUI.Box(new Rect(10, 20 + i * 20, scrollViewWidth / 2 - 20, 20), items[i].name, nameStyle);
+                    if (GUI.Button(new Rect(scrollViewWidth / 2, 20 + i * 20, scrollViewWidth / 2 - 10, 20), "Spawn"))
                     {
-                        Helper.DropItem(new ItemInstance(bow, 1, bow.MaxUses), localPlayer.transform.position, localPlayer.CameraTransform.forward, localPlayer.Controller.HasRaftAsParent);
-                    }
-                    else
-                    {
+                        var netManager = FindObjectOfType<Semih_Network>();
+                        var localPlayer = netManager.GetLocalPlayer();
+                        Helper.DropItem(new ItemInstance(items[i], 1, items[i].MaxUses), localPlayer.transform.position, localPlayer.CameraTransform.forward, localPlayer.Controller.HasRaftAsParent);
                     }
                 }
-
-                if (GUI.Button(new Rect(120, 170, 80, 20), "Take arrows"))
-                {
-                    var netManager = FindObjectOfType<Semih_Network>();
-                    var localPlayer = netManager.GetLocalPlayer();
-                    Item_Base arrow = ItemManager.GetItemByNameContains("arrow");
-                    if (arrow != null)
-                    {
-                        Helper.DropItem(new ItemInstance(arrow, 20, arrow.MaxUses), localPlayer.transform.position, localPlayer.CameraTransform.forward, localPlayer.Controller.HasRaftAsParent);
-                    }
-                    else
-                    {
-                    }
-                }
+                GUI.EndScrollView();
             }
         }
 
-        void OnDestroy()
-        {
-        }
-
-        void Update()
+        public void Update()
         {
             if (GameManager.GameMode != GameMode.None)
             {
-                //if(Input.GetKeyDown(KeyCode.N))
-                //{
-                //    weatherManager = UnityEngine.Object.FindObjectOfType<WeatherManager>();
-                //    //weatherManager.Set
-                //}
-
-                if (Input.GetKeyDown(KeyCode.N))
+                if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.O))
                 {
                     if (!guiVisible)
                     {
                         Helper.SetCursorVisibleAndLockState(true, CursorLockMode.None);
                         CanvasHelper.ActiveMenu = MenuType.TextWriter;
+                        var ch = FindObjectOfType<CanvasHelper>();
+                        ch.SetUIState(true);
                     }
                     else
                     {
                         Helper.SetCursorVisibleAndLockState(false, CursorLockMode.Locked);
                         CanvasHelper.ActiveMenu = MenuType.None;
+                        var ch = FindObjectOfType<CanvasHelper>();
+                        ch.SetUIState(true);
                     }
+                    guiVisible = !guiVisible;
+                }
+                else if (Input.GetKeyDown(KeyCode.Escape) && guiVisible)
+                {
+                    Helper.SetCursorVisibleAndLockState(false, CursorLockMode.Locked);
+                    CanvasHelper.ActiveMenu = MenuType.None;
                     guiVisible = !guiVisible;
                 }
             }

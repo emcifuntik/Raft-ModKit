@@ -29,23 +29,49 @@ namespace CheatScript
 
     public class Script: MonoBehaviour
     {
-        //private static bool cheatsInited = false;
+        private static int stopShowTextOn = 0;
+        private static string textToShow = "";
+        private static DisplayTextManager textManager = null;
+        private static bool textShown = false;
+        private static bool cheatsInited = false;
         //private static bool cheatsActivated = false;
-        void Update()
+
+        public void Awake()
         {
+            textManager = FindObjectOfType<DisplayTextManager>();
+        }
+        public void Update()
+        {
+            Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            if (unixTimestamp < stopShowTextOn)
+            {
+                textManager.ShowText(textToShow);
+                textShown = true;
+            }
+            else if (textShown)
+            {
+                textShown = false;
+                textManager.HideDisplayTexts();
+            }
             if (GameManager.GameMode != GameMode.None)
             {
-                if (Input.GetKeyDown(KeyCode.N))
+                if (Input.GetKeyDown(KeyCode.B))
                 {
                     GameManager.UseCheats = !GameManager.UseCheats;
-                    //GameManager gm = FindObjectOfType<GameManager>();
-                    //Cheat cheat = gm.GetPrivateField<Cheat>("cheat");
+                    stopShowTextOn = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + 5;
+                    if (GameManager.UseCheats)
+                        textToShow = "Cheatmode enabled";
+                    else
+                        textToShow = "Cheatmode disabled";
 
-                    //if(!cheatsInited)
-                    //{
-                    //    cheat.Initialize();
-                    //    cheatsInited = true;
-                    //}
+                    GameManager gm = FindObjectOfType<GameManager>();
+                    Cheat cheat = gm.GetPrivateField<Cheat>("cheat");
+
+                    if (!cheatsInited)
+                    {
+                        cheat.Initialize();
+                        cheatsInited = true;
+                    }
 
                     //if(cheatsActivated)
                     //{

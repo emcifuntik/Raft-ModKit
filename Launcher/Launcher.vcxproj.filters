@@ -37,7 +37,6 @@
     <ResourceCompile Include="Launcher.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="small.ico" />
     <Image Include="Launcher.ico" />
   </ItemGroup>
 </Project>

@@ -84,6 +84,12 @@ namespace WeatherScript
                     }
                     guiVisible = !guiVisible;
                 }
+                else if (Input.GetKeyDown(KeyCode.Escape) && guiVisible)
+                {
+                    Helper.SetCursorVisibleAndLockState(false, CursorLockMode.Locked);
+                    CanvasHelper.ActiveMenu = MenuType.None;
+                    guiVisible = !guiVisible;
+                }
             }
         }
     }

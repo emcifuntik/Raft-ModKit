@@ -33,7 +33,7 @@ namespace ModKit
 
                 int scrollViewWidth = windowWidth / 2 - 40;
 
-                GUI.BeginScrollView(new Rect(windowPosX + 10, windowPosY + 20, windowWidth / 2 - 20, windowHeight - 30), scrollPosition, new Rect(0, 0, scrollViewWidth, scrollViewHeight));
+                scrollPosition = GUI.BeginScrollView(new Rect(windowPosX + 10, windowPosY + 20, windowWidth / 2 - 20, windowHeight - 30), scrollPosition, new Rect(0, 0, scrollViewWidth, scrollViewHeight));
                 for(int i = 0; i < Loader.loadedScripts.Count; ++i)
                 {
                     GUIStyleState nameStyleState = new GUIStyleState();
@@ -44,7 +44,7 @@ namespace ModKit
                     nameStyle.fontStyle = FontStyle.Bold;
                     nameStyle.normal = nameStyleState;
 
-                    GUI.TextField(new Rect(10, 20 + i * 20, scrollViewWidth / 2 - 20, 20), Loader.loadedScripts[i].Name, nameStyle);
+                    GUI.Box(new Rect(10, 20 + i * 20, scrollViewWidth / 2 - 20, 20), Loader.loadedScripts[i].Name, nameStyle);
                     if(GUI.Button(new Rect(scrollViewWidth / 2, 20 + i * 20, scrollViewWidth / 4 - 10, 20), "Reload"))
                     {
                         ClientScene.UnregisterPrefab(Loader.loadedScripts[i].Obj);
@@ -95,16 +95,18 @@ namespace ModKit
                     {
                         Helper.SetCursorVisibleAndLockState(true, CursorLockMode.None);
                         CanvasHelper.ActiveMenu = MenuType.TextWriter;
-                        var ch = FindObjectOfType<CanvasHelper>();
-                        ch.SetUIState(true);
                     }
                     else
                     {
                         Helper.SetCursorVisibleAndLockState(false, CursorLockMode.Locked);
                         CanvasHelper.ActiveMenu = MenuType.None;
-                        var ch = FindObjectOfType<CanvasHelper>();
-                        ch.SetUIState(true);
                     }
+                    guiVisible = !guiVisible;
+                }
+                else if(Input.GetKeyDown(KeyCode.Escape) && guiVisible)
+                {
+                    Helper.SetCursorVisibleAndLockState(false, CursorLockMode.Locked);
+                    CanvasHelper.ActiveMenu = MenuType.None;
                     guiVisible = !guiVisible;
                 }
             }
