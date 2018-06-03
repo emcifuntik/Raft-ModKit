@@ -24,6 +24,7 @@ namespace ModKit {
         public static void Load(string rootPath) {
             ModKitPath = rootPath;
             log = new Logger(ModKitPath + "\\modlog.txt");
+            log.Info += "Running in \"" + ModKitPath + "\"";
 
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
 
