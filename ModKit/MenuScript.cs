@@ -16,17 +16,7 @@ namespace ModKit
 
         public void Awake()
         {
-            //windowStyle.alignment = TextAnchor.MiddleCenter;
 
-            //windowStyle.fontSize = 12;
-            //if (Screen.height >= 800 && Screen.height < 1080)
-            //    windowStyle.fontSize = 14;
-            //else if (Screen.height >= 1080 && Screen.height < 1440)
-            //    windowStyle.fontSize = 18;
-            //else if (Screen.height >= 1440 && Screen.height < 2160)
-            //    windowStyle.fontSize = 22;
-            //else if (Screen.height >= 2160)
-            //    windowStyle.fontSize = 24;
         }
         public void OnGUI()
         {
@@ -54,19 +44,17 @@ namespace ModKit
                     nameStyle.fontStyle = FontStyle.Bold;
                     nameStyle.normal = nameStyleState;
 
-                    GUI.TextArea(new Rect(10, 20 + i * 20, scrollViewWidth / 2 - 20, 20), Loader.loadedScripts[0].Name, nameStyle);
+                    GUI.TextField(new Rect(10, 20 + i * 20, scrollViewWidth / 2 - 20, 20), Loader.loadedScripts[i].Name, nameStyle);
                     if(GUI.Button(new Rect(scrollViewWidth / 2, 20 + i * 20, scrollViewWidth / 4 - 10, 20), "Reload"))
                     {
-                        //ClientScene.UnregisterPrefab(Loader.loadedScripts[i].Obj);
+                        ClientScene.UnregisterPrefab(Loader.loadedScripts[i].Obj);
                         Destroy(Loader.loadedScripts[i].Obj);
-
-
                         Loader.LoadScript(Loader.loadedScripts[i].Path, i);
                         Loader.ExecuteScript(i);
                     }
                     if(GUI.Button(new Rect(scrollViewWidth / 2 + scrollViewWidth / 4, 20 + i * 20, scrollViewWidth / 4 - 10, 20), "Unload"))
                     {
-                        //ClientScene.UnregisterPrefab(Loader.loadedScripts[i].Obj);
+                        ClientScene.UnregisterPrefab(Loader.loadedScripts[i].Obj);
                         Destroy(Loader.loadedScripts[i].Obj);
                         Loader.loadedScripts.RemoveAt(i);
                     }
@@ -75,45 +63,15 @@ namespace ModKit
 
                 if (GUI.Button(new Rect(windowPosX + 10 + windowWidth / 2 + 20, windowPosY + 40, windowWidth / 2 - 60, 20), "Reload All Scripts"))
                 {
-                    //ClientScene.UnregisterPrefab(Loader.loadedScripts[i].Obj);
                     while(Loader.loadedScripts.Count > 0)
                     {
+                        ClientScene.UnregisterPrefab(Loader.loadedScripts[0].Obj);
                         Destroy(Loader.loadedScripts[0].Obj);
                         Loader.loadedScripts.RemoveAt(0);
                     }
                     Loader.LoadAllScripts();
                     Loader.ExecuteAllScripts();
                 }
-
-                //GUI.Box(new Rect(10, 10, 100, 90), "ModKit Menu");
-
-                //if (GUI.Button(new Rect(20, 40, 80, 20), "Take bow"))
-                //{
-                //    var netManager = FindObjectOfType<Semih_Network>();
-                //    var localPlayer = netManager.GetLocalPlayer();
-                //    Item_Base bow = ItemManager.GetItemByNameContains("bow");
-                //    if (bow != null)
-                //    {
-                //        Helper.DropItem(new ItemInstance(bow, 1, bow.MaxUses), localPlayer.transform.position, localPlayer.CameraTransform.forward, localPlayer.Controller.HasRaftAsParent);
-                //    }
-                //    else
-                //    {
-                //    }
-                //}
-
-                //if (GUI.Button(new Rect(20, 70, 80, 20), "Take arrows"))
-                //{
-                //    var netManager = FindObjectOfType<Semih_Network>();
-                //    var localPlayer = netManager.GetLocalPlayer();
-                //    Item_Base arrow = ItemManager.GetItemByNameContains("arrow");
-                //    if (arrow != null)
-                //    {
-                //        Helper.DropItem(new ItemInstance(arrow, 20, arrow.MaxUses), localPlayer.transform.position, localPlayer.CameraTransform.forward, localPlayer.Controller.HasRaftAsParent);
-                //    }
-                //    else
-                //    {
-                //    }
-                //}
             }
             GUIStyleState styleState = new GUIStyleState();
             styleState.textColor = Color.white;
@@ -124,7 +82,7 @@ namespace ModKit
             style.fontStyle = FontStyle.Bold;
             style.normal = styleState;
 
-            GUI.TextArea(new Rect(Screen.width / 2 - 100, 10, 200, 30), "ModKit v.1.0.0.1", style);
+            GUI.TextField(new Rect(Screen.width / 2 - 100, 10, 200, 30), "ModKit v.1.0.0.1", style);
         }
 
         public void Update()

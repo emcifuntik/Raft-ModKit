@@ -5,80 +5,84 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class Script : MonoBehaviour
+namespace ExampleScript
 {
-    ModKit.Logger log = ModKit.Loader.log;
-    bool guiVisible = false;
-
-    void Awake()
+    public class Script : MonoBehaviour
     {
-        //log.Debug += "CheatScript.Awake called";
-    }
+        ModKit.Logger log = ModKit.Loader.log;
+        bool guiVisible = false;
 
-    void OnGUI()
-    {
-        if (guiVisible)
+        void Awake()
         {
-            GUI.Box(new Rect(110, 110, 100, 90), "Mod Menu");
 
-            if (GUI.Button(new Rect(120, 140, 80, 20), "Take bow"))
+        }
+
+        void OnGUI()
+        {
+            if (guiVisible)
             {
-                var netManager = FindObjectOfType<Semih_Network>();
-                var localPlayer = netManager.GetLocalPlayer();
-                Item_Base bow = ItemManager.GetItemByNameContains("bow");
-                if (bow != null)
+                GUI.Box(new Rect(110, 110, 100, 90), "Mod Menu");
+
+                if (GUI.Button(new Rect(120, 140, 80, 20), "Take bow"))
                 {
-                    Helper.DropItem(new ItemInstance(bow, 1, bow.MaxUses), localPlayer.transform.position, localPlayer.CameraTransform.forward, localPlayer.Controller.HasRaftAsParent);
+                    var netManager = FindObjectOfType<Semih_Network>();
+                    var localPlayer = netManager.GetLocalPlayer();
+                    Item_Base bow = ItemManager.GetItemByNameContains("bow");
+                    if (bow != null)
+                    {
+                        Helper.DropItem(new ItemInstance(bow, 1, bow.MaxUses), localPlayer.transform.position, localPlayer.CameraTransform.forward, localPlayer.Controller.HasRaftAsParent);
+                    }
+                    else
+                    {
+                    }
                 }
-                else
+
+                if (GUI.Button(new Rect(120, 170, 80, 20), "Take arrows"))
                 {
+                    var netManager = FindObjectOfType<Semih_Network>();
+                    var localPlayer = netManager.GetLocalPlayer();
+                    Item_Base arrow = ItemManager.GetItemByNameContains("arrow");
+                    if (arrow != null)
+                    {
+                        Helper.DropItem(new ItemInstance(arrow, 20, arrow.MaxUses), localPlayer.transform.position, localPlayer.CameraTransform.forward, localPlayer.Controller.HasRaftAsParent);
+                    }
+                    else
+                    {
+                    }
                 }
             }
+        }
 
-            if (GUI.Button(new Rect(120, 170, 80, 20), "Take arrows"))
+        void OnDestroy()
+        {
+        }
+
+        void Update()
+        {
+            if (GameManager.GameMode != GameMode.None)
             {
-                var netManager = FindObjectOfType<Semih_Network>();
-                var localPlayer = netManager.GetLocalPlayer();
-                Item_Base arrow = ItemManager.GetItemByNameContains("arrow");
-                if (arrow != null)
+                //if(Input.GetKeyDown(KeyCode.N))
+                //{
+                //    weatherManager = UnityEngine.Object.FindObjectOfType<WeatherManager>();
+                //    //weatherManager.Set
+                //}
+
+                if (Input.GetKeyDown(KeyCode.N))
                 {
-                    Helper.DropItem(new ItemInstance(arrow, 20, arrow.MaxUses), localPlayer.transform.position, localPlayer.CameraTransform.forward, localPlayer.Controller.HasRaftAsParent);
-                }
-                else
-                {
+                    if (!guiVisible)
+                    {
+                        Helper.SetCursorVisibleAndLockState(true, CursorLockMode.None);
+                        CanvasHelper.ActiveMenu = MenuType.TextWriter;
+                    }
+                    else
+                    {
+                        Helper.SetCursorVisibleAndLockState(false, CursorLockMode.Locked);
+                        CanvasHelper.ActiveMenu = MenuType.None;
+                    }
+                    guiVisible = !guiVisible;
                 }
             }
         }
     }
 
-    void OnDestroy()
-    {
-    }
-
-    void Update()
-    {
-        if (GameManager.GameMode != GameMode.None)
-        {
-            //if(Input.GetKeyDown(KeyCode.N))
-            //{
-            //    weatherManager = UnityEngine.Object.FindObjectOfType<WeatherManager>();
-            //    //weatherManager.Set
-            //}
-
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-                if (!guiVisible)
-                {
-                    Helper.SetCursorVisibleAndLockState(true, CursorLockMode.None);
-                    CanvasHelper.ActiveMenu = MenuType.TextWriter;
-                }
-                else
-                {
-                    Helper.SetCursorVisibleAndLockState(false, CursorLockMode.Locked);
-                    CanvasHelper.ActiveMenu = MenuType.None;
-                }
-                guiVisible = !guiVisible;
-            }
-        }
-    }
 }
