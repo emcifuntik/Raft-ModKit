@@ -1,5 +1,5 @@
 # Raft-ModKit
-![Raft Poster](https://github.com/emcifuntik/Raft-ModKit/raw/gh-pages/raft.png)
+![Raft Poster](/raft.png)
 ## How to start playing with mods
 * Download actual version of ModKit
 * Unpack .zip archive anywhere you want
