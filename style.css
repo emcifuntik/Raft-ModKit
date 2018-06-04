@@ -179,3 +179,16 @@ body {
 .footer a {
   color: inherit;
 }
+
+@media screen and (max-height: 600px) {
+  .info .scroll {
+    display: none;
+  }
+  .howto p {
+    font-size: 14px;
+    line-height: 30px;
+  }
+  .howto p span {
+    font-size: 12px;
+  }
+}
